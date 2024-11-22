@@ -9,6 +9,15 @@ export function CreateAccount(username, password) {
     return true
 }
 
+export function GetAccount(username) {
+    const db = AccountsDB()
+
+    const account = db.query("SELECT * FROM accounts WHERE username = ?")
+    account.get(username)
+
+    if (account.length === 0) { return false } else { return account }
+}
+
 function AccountsDB() {
     const db = new Database("accounts.sqlite")
 
