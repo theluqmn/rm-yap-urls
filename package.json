@@ -1,0 +1,14 @@
+{
+  "name": "rm-yap-urls",
+  "module": "src/index.js",
+  "scripts": {
+    "start": "bun run src/index.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
