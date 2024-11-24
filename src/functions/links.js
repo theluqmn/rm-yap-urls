@@ -41,6 +41,18 @@ export function UpdateLink(id, url) {
     return true
 }
 
+export function DeleteLink(id) {
+    const db = LinksDB()
+    const link = GetLink(id)
+
+    // Checks
+    if (!link) { return false }
+    
+    const delete_link = db.query("DELETE FROM links WHERE id = ?")
+    delete_link.run(id)
+    return true
+}
+
 export function GetLink(id) {
     const db = LinksDB()
 
