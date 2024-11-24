@@ -16,10 +16,9 @@ Link shortener backend webserver, designed to redirect shortened URLs to their o
 
 Focus on core functionalities.
 
-- [ ] links
+- [x] links
   - [x] add links
-  - [ ] update links
-  - [ ] delete links
-  - [ ] add expiration date
-- [ ] webserver
+  - [x] update links
+  - [x] delete links
+- [ ] webserver (in progress)
 - [ ] redirect from ID to link
