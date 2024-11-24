@@ -1,7 +1,7 @@
 import { Database } from "bun:sqlite"
 import { GetAccount } from "./accounts"
 
-export function createLink(owner, url) {
+export function CreateLink(owner, url) {
     const db = LinksDB()
     const account = GetAccount(owner)
 
@@ -18,6 +18,46 @@ export function createLink(owner, url) {
 
     const create_link = db.query("INSERT INTO links (id, owner, url) VALUES (?, ?, ?)")
     create_link.run(crypto.randomUUID(), owner, url)
+    return true
+}
+
+export function UpdateLink(id, url) {
+    const db = LinksDB()
+    const link = GetLink(id)
+
+    // Checks
+    if (!link) { return false }
+    if (url.length > 255) { return false }
+    if (url.length < 1) { return false }
+    if (url.includes(" ")) { return false }
+    if (url.includes(";")) { return false }
+    if (url.includes("'")) { return false }
+    if (url.includes('"')) { return false }
+    if (url.includes("`")) { return false }
+    if (url.includes("\\")) { return false }
+
+    const update_link = db.query("UPDATE links SET url = ? WHERE id = ?")
+    update_link.run(url, id)
+    return true
+}
+
+export function GetLink(id) {
+    const db = LinksDB()
+
+    const link = db.query("SELECT * FROM links WHERE id = ?")
+    link.get(id)
+
+    if (link.length === 0) { return false }
+    return link
+}
+
+export function GetLinks(owner) {
+    const db = LinksDB()
+
+    const links = db.query("SELECT * FROM links WHERE owner = ?")
+    links.get(owner)
+
+    return links
 }
 
 function LinksDB() {
